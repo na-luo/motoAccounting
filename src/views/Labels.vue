@@ -6,13 +6,12 @@
 </template>
 <script lang="ts">
     import Vue from 'vue'
-    import Nav from "@/components/Nav.vue"
 
     export default Vue.extend({
         
     })
 </script>
 
-<style scoped lang="sass">
+<style scoped lang="scss">
 
 </style>
