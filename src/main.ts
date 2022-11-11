@@ -8,7 +8,7 @@ import Layout from '@/components/Layout.vue';
 import Icon from '@/components/icon.vue';
 import NumberPad from '@/components/Money/NumberPad.vue';
 import Tags from '@/components/Money/Tags.vue';
-import Type from '@/components/Money/Type.vue';
+import Types from '@/components/Money/Types.vue';
 
 Vue.config.productionTip = false
 
@@ -17,7 +17,7 @@ Vue.component('Layout', Layout);
 Vue.component('Icon', Icon);
 Vue.component('NumberPad', NumberPad);
 Vue.component('Tags', Tags);
-Vue.component('Type', Type);
+Vue.component('Types', Types);
 new Vue({
   router,
   store,
