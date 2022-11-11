@@ -1,18 +1,9 @@
-import { register } from 'register-service-worker';
 <template>
     <div>
-        <Layout>
+        <Layout class-prefix="Labels">
             <div class="body-L">
                 <div>
                     <ul class="Labels">
-                        <li><span>衣</span> <Icon name="big" class="icon"/></li>
-                        <li><span>食</span> <Icon name="big" class="icon"/></li>
-                        <li><span>住</span> <Icon name="big" class="icon"/></li>
-                        <li><span>行</span> <Icon name="big" class="icon"/></li>
-                        <li><span>衣</span> <Icon name="big" class="icon"/></li>
-                        <li><span>食</span> <Icon name="big" class="icon"/></li>
-                        <li><span>住</span> <Icon name="big" class="icon"/></li>
-                        <li><span>行</span> <Icon name="big" class="icon"/></li>
                         <li><span>衣</span> <Icon name="big" class="icon"/></li>
                         <li><span>食</span> <Icon name="big" class="icon"/></li>
                         <li><span>住</span> <Icon name="big" class="icon"/></li>
@@ -39,16 +30,36 @@ import { register } from 'register-service-worker';
         name:'Labels'
     })
 </script>
+<style lang="scss">
+    .Labels-content{
+        background: #f5f5f5;
+    }
+</style>
 
 <style scoped lang="scss">
     .body-L{
         background: rgb(241, 241, 241);
         position: relative;
+        .add{
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        background: rgb(233, 248, 177);
+        opacity: 0.74;
+        height: 60px;
+        width: 60px;
+        border-radius: 60px;
+        text-align: center;
+        line-height: 60px;
+        > .icon{
+            margin-top: 16px;
+            font-size: 26px;
+        }
+    }
     }
     .Labels{
         display: flex;
         flex-direction: column;
-        height: 607px;
         overflow: auto;
         li{
             height: 44px;
@@ -66,20 +77,6 @@ import { register } from 'register-service-worker';
             }
         }
     }
-    .add{
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        background: rgb(233, 248, 177);
-        opacity: 0.74;
-        height: 60px;
-        width: 60px;
-        border-radius: 60px;
-        text-align: center;
-        line-height: 60px;
-        > .icon{
-            margin-top: 16px;
-            font-size: 26px;
-        }
-    }
+
+
 </style>

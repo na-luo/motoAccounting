@@ -17,12 +17,7 @@
 </template>
 
 <script lang="ts">
-    // import labels from '@/assets/icons/labels.svg';
-    // import money from '@/assets/icons/money.svg';
-    // import chart from '@/assets/icons/chart.svg';
-    // console.log(labels,money,chart);
 
-    
 export default ({
     name:'Nav'
 })
@@ -32,7 +27,7 @@ export default ({
     @import "@/assets/style/helper.scss";
     .nav{
         display: flex;
-        box-shadow: 0 0 3px rgba(0,0,0,0.9);
+        @extend %innerShadow;
         
         .item{
             padding: 2px 0;
