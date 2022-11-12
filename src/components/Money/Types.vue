@@ -1,3 +1,4 @@
+
 <template>
     <div>
         <ul class="type">
@@ -11,26 +12,31 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
+import {Prop,Component} from 'vue-property-decorator';
 
-export default ({
-    name:'Types',
-    data(){
-
-        return{
-            type:'pay'
-        }
-    },
-    methods:{
-        selectType(type){
+    @Component
+    export default class Types extends Vue {
+        type = 'pay';
+        @Prop(Number) xxx: number | undefined
+        selectType(type: string){
             if (type !== 'pay'&& type !== 'income'&& type !== 'transfer_accounts') {
-                throw new Error('type is unknown')
+                throw new Error('type is unknown');
             }
-            this.type = type
+            this.type = type;
         }
-    }
+        mounted () {
+            if(this.xxx === undefined){
+                console.log('没有xxx');
+                
+            }else{
+                console.log(this.xxx.toString());
+                
+            }
+        }
 
-})
+}
 </script>
 
 <style lang="scss" scoped>

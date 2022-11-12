@@ -2,7 +2,7 @@
   <div>
     <Layout class-prefix="xxx">
       <Tags></Tags>
-      <Types></Types>
+      <Types :xxx="333"></Types>
       <NumberPad></NumberPad>
     </Layout>
   </div>
