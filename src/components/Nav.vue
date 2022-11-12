@@ -12,6 +12,10 @@
             <Icon name="chart" class="icon"/>
             统计
         </router-link>
+        <router-link to="/summary" class="item" active-class="selected">
+            <Icon name="mine" class="icon" />
+            我的
+        </router-link>
     </div>
 
 </template>
@@ -31,7 +35,7 @@ export default ({
         
         .item{
             padding: 2px 0;
-            width: 33.333%;
+            width: 25%;
             display: flex;
             justify-content: center;
             align-items: center;
