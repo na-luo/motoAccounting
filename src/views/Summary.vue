@@ -3,7 +3,11 @@
         <Layout>
             <div class="SumBody">
                 <Icon name="return" class="icon"></Icon>
-                <div class="type">支付</div>
+                <select class="type">
+                        <option value ="volvo">转账</option>
+                        <option value ="saab">收入</option>
+                        <option value="opel">支出</option>
+                    </select>
                 <div class="tag">
                     <div class="tagName">标签</div>
                     <div class="tags">
@@ -32,7 +36,13 @@
                 </div>
                 <div class="note">
                     <span>备注:</span>
-                    <input type="text">
+                    <input type="text" 
+                     @input="onInput"
+                    placeholder="在这里输入备注" :value="value">
+                </div>
+                <div class="account">
+                    <span>账户:</span>
+                    <div class="account-name">中国银行</div>
                 </div>
                 <div class="save">保存</div>
             </div>
@@ -41,14 +51,19 @@
 </template>
 
 <script lang="ts">
-    export default {
-        name:'Summary',
-        data () {
-            return {
-                money:'0'
-            }
+    import Vue from 'vue';
+    import {Prop,Component} from 'vue-property-decorator';
+    @Component
+    export default class Summary extends Vue{
+        value=''
+        money='120'
+        onInput(event:KeyboardEvent){
+            const input = event.target as HTMLInputElement;
+            this.value = input.value
         }
-    };
+        
+
+    }
 </script>
 
 <style lang="scss" scoped>
@@ -75,6 +90,7 @@
             font-size: 18px;
             font-weight: 550;
             background: #88c4ff;
+            border: 0;
         }
         .numberPad {
             @extend %clearFix;
@@ -134,6 +150,7 @@
             background: rgb(211, 211, 211);
             height: 50px;
             line-height: 50px;
+            margin-top: 10px;
             > span{
                 float: left;
                 font-size: 20px;
@@ -146,6 +163,29 @@
                 margin-top:4px;
                 padding: 6px;
                 width: 70%;
+                text-align: center;
+            }
+        }
+        .account{
+            margin-top: 10px;
+            padding: 2px 10px;
+            background: rgb(211, 211, 211);
+            height: 50px;
+            line-height: 50px;
+            > span{
+                float: left;
+                font-size: 20px;
+                margin-right: 14px;
+            }
+            > .account-name{
+                text-align: center;
+                float: left;
+                height: 38px;
+                line-height: 38px;
+                margin-top:4px;
+                font-size: 19px;
+                width: 70%;
+                background: #ffffff;
             }
         }
         .save{

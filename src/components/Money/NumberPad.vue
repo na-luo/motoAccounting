@@ -38,7 +38,7 @@ export default class NumberPad extends Vue {
   inputContent(event: MouseEvent) {
     const button = event.target as HTMLButtonElement; //强制执行
     let input = button.textContent!; //!是说明button.textContent不会为空的
-
+    let length = this.output.length;
     if (this.output === '0') {
         if (input === '0') {
             return;
@@ -46,8 +46,9 @@ export default class NumberPad extends Vue {
             this.output = input;
             return;
         }
-    }else if(this.output.indexOf('.') === this.output.length-1){
-        if (input ==='.') {
+    }else if(this.output[length-1].match(/[./-/×/+/÷/]/)){
+        console.log(1);
+        if (input.match(/[./×/+/-/÷/]/)) {
           return;
         }else{
           this.output += input;  
