@@ -2,32 +2,46 @@
     <div>
         <div class="tags">
                 <ul class="current">
-                    <li>衣</li>
-                    <li>食</li>
-                    <li>住</li>
-                    <li>行</li>
-                    <li>行</li>
-                    <li>行</li>
-                    <li>行</li>
-                    <li>行</li>
-                    <li>行</li>
-                    <li>行</li>
-                    <li>行</li>
-                    <li>行</li>
+                    <li v-for="tag in dataSource" :key="tag"
+                    :class="{selected: selectedTags.indexOf(tag)>=0}"
+                    @click="toggle(tag)"
+                    >{{tag}}</li>
                 </ul>
                 <div class="new">
-                    <button>新增标签</button>
+                    <button @click="createTag">新增标签</button>
                 </div>
             </div>
 </div>
 </template>
 
 <script lang="ts">
+    import Vue from 'vue';
+    import {Prop,Component} from 'vue-property-decorator';
+    @Component
+    export default class Tags extends Vue{
+    @Prop() readonly dataSource:string[] | undefined;
+    selectedTags: string[] = [];
 
+    toggle(tag:string){
+        const index = this.selectedTags.indexOf(tag);
+        if (index>=0) {
+            this.selectedTags.splice(index,1);
+        }else{
+            this.selectedTags.push(tag);
+        }
+    }
+    createTag(){
+        const name = window.prompt('请输入标签名');
+        if (name === '') {
+            window.alert('标签不能为空')
+        }else{
+            if (this.dataSource) {
+                this.$emit('update:dataSource',[...this.dataSource,name])
+            }
+        }
 
-export default ({
-    name:'Tags'
-})
+    }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -43,7 +57,7 @@ export default ({
             flex-wrap: wrap;
             overflow: hidden;
             > li{
-                background: #d9d9d9;
+                background: #b8e7fa;
                 $h:24px;
                 height: $h;
                 margin-top: 15px;
@@ -52,6 +66,10 @@ export default ({
                 margin-left: 12px;
                 padding: 0 16px;
                 line-height: $h;
+                &.selected{
+                    background: rgb(114, 196, 243);
+                    color: rgb(255, 255, 255);
+                }
             }
         }
         > .new{

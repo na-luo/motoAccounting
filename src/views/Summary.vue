@@ -126,7 +126,7 @@
                     border-radius: $h/2;
                     margin-right: 12px;
                     margin-left: 12px;
-                    width: 68px;
+                    min-width: 68px;
                     text-align: center;
                     line-height: $h;
                 }

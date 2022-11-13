@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Layout class-prefix="xxx">
-      <Tags></Tags>
-      <Types :xxx="333"></Types>
+    <Layout class-prefix="layout">
+      <Tags :data-source.sync="tags"></Tags>
+      <Types></Types>
       <NumberPad></NumberPad>
     </Layout>
   </div>
@@ -11,12 +11,17 @@
 <script lang="ts">
 export default {
   name: "Money",
+  data () {
+    return {
+      tags:['衣','食','住','行']
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets/style/helper.scss";
-.xxx-content {
+.layout-content {
   border: 10px solid blue;
 }
 </style>
