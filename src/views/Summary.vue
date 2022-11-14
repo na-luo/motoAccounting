@@ -2,7 +2,9 @@
     <div>
         <Layout>
             <div class="SumBody">
-                <Icon name="return" class="icon"></Icon>
+                <div @click="reBack">
+                    <Icon name="return" class="icon"></Icon>
+                </div>
                 <select class="type">
                         <option value ="volvo">转账</option>
                         <option value ="saab">收入</option>
@@ -34,17 +36,12 @@
                 <div class="numberPad">
                     {{money}}
                 </div>
-                <div class="note">
-                    <span>备注:</span>
-                    <input type="text" 
-                     @input="onInput"
-                    placeholder="在这里输入备注" :value="value">
-                </div>
+                <Note></Note>
                 <div class="account">
                     <span>账户:</span>
                     <div class="account-name">中国银行</div>
                 </div>
-                <div class="save">保存</div>
+                <div class="save" @click="save">保存</div>
             </div>
         </Layout>
     </div>
@@ -52,17 +49,20 @@
 
 <script lang="ts">
     import Vue from 'vue';
+    import Note from '@/components/Summary/Note.vue';
     import {Prop,Component} from 'vue-property-decorator';
-    @Component
+    @Component({
+        components:{Note}
+    })
     export default class Summary extends Vue{
         value=''
         money='120'
-        onInput(event:KeyboardEvent){
-            const input = event.target as HTMLInputElement;
-            this.value = input.value
+        save(){
+            console.log();
         }
-        
-
+        reBack(){
+            this.$router.push('/Money');
+        }
     }
 </script>
 
@@ -143,27 +143,6 @@
                     padding: 2px;
                     border-bottom: 1px solid rgb(212, 192, 247);
                 }
-            }
-        }
-        .note{
-            padding: 2px 10px;
-            background: rgb(211, 211, 211);
-            height: 50px;
-            line-height: 50px;
-            margin-top: 10px;
-            > span{
-                float: left;
-                font-size: 20px;
-                margin-right: 14px;
-            }
-            > input{
-                float: left;
-                border: 0;
-                height: 38px;
-                margin-top:4px;
-                padding: 6px;
-                width: 70%;
-                text-align: center;
             }
         }
         .account{

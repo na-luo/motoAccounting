@@ -2,11 +2,11 @@
 <template>
     <div>
         <ul class="type">
-            <li :class="type === 'pay' && 'selected'"
+            <li :class="value === 'pay' && 'selected'"
             @click="selectType('pay')">支出</li>
-            <li :class="type === 'income' && 'selected'"
+            <li :class="value === 'income' && 'selected'"
             @click="selectType('income')">收入</li>
-            <li :class="type === 'transfer_accounts' && 'selected'"
+            <li :class="value === 'transfer_accounts' && 'selected'"
             @click="selectType('transfer_accounts')">转账</li>
         </ul>
     </div>
@@ -14,33 +14,23 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Prop,Component} from 'vue-property-decorator';
+import {Prop,Component, Watch} from 'vue-property-decorator';
 
     @Component
     export default class Types extends Vue {
-        type = 'pay';
-        @Prop(Number) xxx: number | undefined
+        // type = 'pay';
+        @Prop() readonly value!: string; //!可以不管type是否有初始值
         selectType(type: string){
             if (type !== 'pay'&& type !== 'income'&& type !== 'transfer_accounts') {
                 throw new Error('type is unknown');
             }
-            this.type = type;
+            this.$emit('update:value',type)  
         }
-        mounted () {
-            if(this.xxx === undefined){
-                console.log('没有xxx');
-                
-            }else{
-                console.log(this.xxx.toString());
-                
-            }
-        }
-
 }
 </script>
 
 <style lang="scss" scoped>
-          .type{
+    .type{
         height: 45px;
         display: flex;
         justify-content: space-between;
