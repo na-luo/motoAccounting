@@ -1,10 +1,10 @@
 <template>
   <div>
     <Layout class-prefix="layout">
-      {{record}}
+      {{recordList}}
       <Tags :data-source.sync="tags" @update:value="onUpdateTags"></Tags>
       <Types :value.sync="record.type"></Types>
-      <NumberPad :value.sync="record.amount" @submit="saveRecord"></NumberPad>
+      <NumberPad :initialValue.sync="record.initialValue" @submit="saveRecord"></NumberPad>
     </Layout>
   </div>
 </template>
@@ -16,11 +16,25 @@ import Tags from "@/components/Money/Tags.vue";
 import Types from "@/components/Money/Types.vue";
 import { Prop, Component, Watch } from "vue-property-decorator";
 
+window.localStorage.setItem('version','0.0.1')
+  const version =  window.localStorage.getItem('version')|| '0';
+  const recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') ||'[]');
+    if (version === '0.0.1') {
+      recordList.forEach(
+        record=>{
+          record.createdAt = new Date(2020,0,1);
+        }
+      );
+      window.localStorage.setItem('recordList',JSON.stringify(recordList));
+    }
+  window.localStorage.setItem('version','0.0.2');
+  
   type Record = {
     tags:string[] 
     type:string
-    amount:string
-    sum:number
+    initialValue:string //初始值
+    sum:number  //计算值
+    createdAt?: Date //类，构造函数
   }
 
 @Component({
@@ -29,27 +43,35 @@ import { Prop, Component, Watch } from "vue-property-decorator";
 export default class Money extends Vue {
   name = "Money";
   tags = ["衣", "食", "住", "行"];
-  recordList: Record[] = [];
+  recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') ||'[]');
   record: Record = {
-    tags:[],type:'pay',amount:'0',sum:0
+    tags:[],type:'pay',initialValue:'0',sum:0
   };
+  
   onUpdateTags(value: string[]) {
     this.record.tags = value;
   }
   onUpdateAmount(value: string) {
-    this.record.amount = value;
+    this.record.initialValue = value;
   }
   saveRecord(value:number){
     this.record.sum = value;
-    const record2 = JSON.parse(JSON.stringify(this.record))
-    this.recordList.push(record2)
+    const record2 = JSON.parse(JSON.stringify(this.record));
+    record2.createdAt = new Date();
+    this.recordList.push(record2);
+   
   }
+  // getDate(){
+  //   let date = new Date();
+  //   console.dir(new Date());
+  //   return date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()
+  // }
+  
   
   @Watch('recordList')
   onRecordLIstChanged(){
-    window.localStorage.setItem('recordList',JSON.stringify(this.recordList))
+    window.localStorage.setItem('recordList',JSON.stringify(this.recordList));
     console.log(this.recordList);
-    
   }
 }
 </script>

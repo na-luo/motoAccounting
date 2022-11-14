@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="numberPad">
-      <div class="output">{{ output }}</div>
+      <div class="output">{{output}}</div>
       <div class="button">
         <button class="button-left" @click="inputContent">1</button>
         <button @click="inputContent">2</button>
@@ -34,8 +34,8 @@ import { Prop, Component } from "vue-property-decorator";
 
 @Component
 export default class NumberPad extends Vue {
-  @Prop() readonly value!: string;
-  output = this.value;
+  @Prop() readonly initialValue!: string;
+  output = this.initialValue;
   inputContent(event: MouseEvent) {
     const button = event.target as HTMLButtonElement; //强制执行
     let input = button.textContent!; //!是说明button.textContent不会为空的
@@ -57,14 +57,14 @@ export default class NumberPad extends Vue {
         this.output += input;
     }
   }
-  remove(event:string){
+  remove(){
     if (this.output.length === 1) {
         this.output = '0';
     }else{
         this.output = this.output.slice(0,-1);
     }
   }
-  clear(event:string){
+  clear(){
     this.output = '0';
   }
   brackets(event: MouseEvent){
@@ -91,16 +91,16 @@ export default class NumberPad extends Vue {
     // }
     // this.output += input;
   }
-  onRouter(event:string){
+  onRouter(){
     let amount = this.output;
     amount= amount.replaceAll('×','*').replaceAll('÷','/').replaceAll('-','-');
-    this.$emit('update:value',amount)
     try{
       amount = eval(amount)
     }catch(e){
       window.alert('输入有误，请重新输入');
     }
     if (typeof amount === 'number') {
+      this.output = '0';
       this.$emit('submit',amount)
       // this.$router.push('/Summary')
     }
