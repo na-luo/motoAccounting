@@ -10,11 +10,11 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue, Watch } from 'vue-property-decorator';
+    import { Component, Vue, Watch,Prop } from 'vue-property-decorator';
     @Component
     export default class Note extends Vue {
-        value=''
-        money='120'
+        value='';
+        // @Prop() note!: string;
         onInput(event:KeyboardEvent){
             const input = event.target as HTMLInputElement;
             this.value = input.value

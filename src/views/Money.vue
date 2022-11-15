@@ -36,6 +36,7 @@ import { Prop, Component, Watch } from "vue-property-decorator";
     initialValue:string //初始值
     sum:number  //计算值
     createdAt?: Date //类，构造函数
+    note:string
   }
 
   
@@ -48,7 +49,7 @@ export default class Money extends Vue {
   initialValue= '0';
   recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') ||'[]');
   record: Record = {
-    tags:[],type:'pay',initialValue:'0',sum:0
+    tags:[],type:'pay',initialValue:'0',sum:0,note:''
 
   }
   onUpdateTags(value: string[]) {

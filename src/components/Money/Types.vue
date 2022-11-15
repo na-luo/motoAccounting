@@ -18,7 +18,6 @@ import {Prop,Component, Watch} from 'vue-property-decorator';
 
     @Component
     export default class Types extends Vue {
-        // type = 'pay';
         @Prop() readonly value!: string; //!可以不管type是否有初始值
         selectType(type: string){
             if (type !== 'pay'&& type !== 'income'&& type !== 'transfer_accounts') {
