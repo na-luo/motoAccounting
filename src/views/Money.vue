@@ -10,16 +10,17 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable */
 import Vue from "vue";
 import NumberPad from "@/components/Money/NumberPad.vue";
 import Tags from "@/components/Money/Tags.vue";
 import Types from "@/components/Money/Types.vue";
 import { Prop, Component, Watch } from "vue-property-decorator";
+const model =  require('@/model.js').model;
+const version =  window.localStorage.getItem('version')|| '0';
+const recordList: Record[] = model.fetch()
 
 // window.localStorage.setItem('version','0.0.1');
-  const version =  window.localStorage.getItem('version')|| '0';
-  const recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') ||'[]');
-  
   // if (version === '0.0.1') {
     //   recordList.forEach(
     //     record=>{
@@ -83,11 +84,6 @@ export default class Money extends Vue {
     }
     
   }
-  // getDate(){
-  //   let date = new Date();
-  //   console.dir(new Date());
-  //   return date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()
-  // }
   created () {
     console.log('created');
     let sum =  JSON.parse((this.$route.query.sum||'0') as string) // 取
@@ -95,11 +91,9 @@ export default class Money extends Vue {
       this.initialValue = JSON.stringify(sum);
     }
   }
-  
   @Watch('recordList')
   onRecordLIstChanged(){
-    window.localStorage.setItem('recordList',JSON.stringify(this.recordList));
-    // console.log(this.recordList);
+    model.save(this.recordList);
   }
 }
 </script>

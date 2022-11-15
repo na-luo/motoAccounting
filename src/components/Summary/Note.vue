@@ -14,14 +14,13 @@
     @Component
     export default class Note extends Vue {
         value='';
-        // @Prop() note!: string;
         onInput(event:KeyboardEvent){
             const input = event.target as HTMLInputElement;
             this.value = input.value
         }
         @Watch('value')
         onValueChanged(value:string){
-            this.$emit('update:value',value)
+            this.$emit('updateInput',value)
         }
     }
 </script>

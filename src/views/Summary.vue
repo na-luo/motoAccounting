@@ -1,3 +1,4 @@
+
 <template>
     <div>
         <Layout>
@@ -36,7 +37,7 @@
                 <div class="numberPad">
                     {{money}}
                 </div>
-                <Note :note.sync="record.note" @update:value="onUpdateNote"></Note>
+                <Note @updateInput="onUpdateNote"></Note>
                 <div class="account">
                     <span>账户:</span>
                     <div class="account-name">中国银行</div>
@@ -48,19 +49,18 @@
 </template>
 
 <script lang="ts">
+    
     import Vue from 'vue';
     import Note from '@/components/Summary/Note.vue';
     import {Prop,Component} from 'vue-property-decorator';
     import Tags from "@/components/Money/Tags.vue";
     // let recordList:any[] = JSON.parse(window.localStorage.getItem('recordList')|| '[]'); 
-
     @Component({components:{Note,Tags}})
     export default class Summary extends Vue{
         recordList:any[] = JSON.parse(window.localStorage.getItem('recordList')|| '[]'); 
         record:any =this.recordList[this.recordList.length-1];
         value=this.record['type'];
         money:string = this.record['sum'];
-        
         save(){
             window.localStorage.setItem('recordList',JSON.stringify(this.recordList));
             setTimeout(()=> {this.$router.push('/Money')},1)
