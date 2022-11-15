@@ -31,7 +31,7 @@
         }
         this.$emit('update:value',this.selectedTags)
     }
-    createTag(event:string){
+    createTag(){
         const name = window.prompt('请输入标签名');
         if (name === '') {
             window.alert('标签不能为空')

@@ -101,8 +101,10 @@ export default class NumberPad extends Vue {
     }
     if (typeof amount === 'number') {
       this.output = '0';
-      this.$emit('submit',amount)
-      // this.$router.push('/Summary')
+      this.$emit('submit',amount);
+      setTimeout(()=> {
+      this.$router.push('/Summary');
+    },1)
     }
   }
 

@@ -5,11 +5,11 @@
                 <div @click="reBack">
                     <Icon name="return" class="icon"></Icon>
                 </div>
-                <select class="type">
-                        <option value ="volvo">转账</option>
-                        <option value ="saab">收入</option>
-                        <option value="opel">支出</option>
-                    </select>
+                <select class="type" :value="value">
+                    <option value ="pay">收入</option>
+                    <option value="income">支出</option>
+                    <option value ="transfer_accounts">转账</option>
+                </select>
                 <div class="tag">
                     <div class="tagName">标签</div>
                     <div class="tags">
@@ -51,17 +51,24 @@
     import Vue from 'vue';
     import Note from '@/components/Summary/Note.vue';
     import {Prop,Component} from 'vue-property-decorator';
-    @Component({
-        components:{Note}
-    })
+    import Tags from "@/components/Money/Tags.vue";
+    let recordList:any[] = JSON.parse(window.localStorage.getItem('recordList')|| '[]'); 
+
+    
+    @Component({components:{Note,Tags}})
     export default class Summary extends Vue{
-        value=''
-        money='120'
+        recordList:any[] = JSON.parse(window.localStorage.getItem('recordList')|| '[]'); 
+        value=this.recordList[this.recordList.length-1]['type'];
+        money:string = this.recordList[this.recordList.length-1]['sum'];
+        
         save(){
             console.log();
         }
         reBack(){
-            this.$router.push('/Money');
+            this.$router.push({path:'/Money',
+            query: {'sum': JSON.stringify(this.money)}
+            
+        });
         }
     }
 </script>
