@@ -71,12 +71,9 @@ export default class Money extends Vue {
     }
   }
   recordContrast(other:any){
-    let record;
-    if (recordList.length===1) {
-      record = recordList[1];
-    }else{
-      record = recordList[recordList.length-1];
-    }
+    let record:Record;
+    record = recordList[recordList.length-1];
+    record = JSON.parse(JSON.stringify(record));
     delete record.createdAt;
     if (JSON.stringify(other) != JSON.stringify(record)) {
       return true
@@ -92,7 +89,7 @@ export default class Money extends Vue {
   // }
   created () {
     console.log('created');
-    let sum =  JSON.parse((this.$route.query.sum||'') as string) // 取
+    let sum =  JSON.parse((this.$route.query.sum||'0') as string) // 取
     if (sum) {
       this.initialValue = JSON.stringify(sum);
     }
