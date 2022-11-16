@@ -16,9 +16,10 @@ import NumberPad from "@/components/Money/NumberPad.vue";
 import Tags from "@/components/Money/Tags.vue";
 import Types from "@/components/Money/Types.vue";
 import { Prop, Component, Watch } from "vue-property-decorator";
-const model =  require('@/model.js').model;
+import model from "@/model";
+
 const version =  window.localStorage.getItem('version')|| '0';
-const recordList: Record[] = model.fetch()
+const recordList: RecordItem[] = model.fetch()
 
 // window.localStorage.setItem('version','0.0.1');
   // if (version === '0.0.1') {
@@ -31,14 +32,6 @@ const recordList: Record[] = model.fetch()
     // }
   window.localStorage.setItem('version','0.0.2');
   
-  type Record = {
-    tags:string[] 
-    type:string
-    initialValue:string //初始值
-    sum:number  //计算值
-    createdAt?: Date //类，构造函数
-    note:string
-  }
 
   
 @Component({
@@ -48,8 +41,8 @@ export default class Money extends Vue {
   name = "Money";
   tags = ["衣", "食", "住", "行"];
   initialValue= '0';
-  recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') ||'[]');
-  record: Record = {
+  recordList: RecordItem[] = JSON.parse(window.localStorage.getItem('recordList') ||'[]');
+  record: RecordItem = {
     tags:[],type:'pay',initialValue:'0',sum:0,note:''
 
   }
@@ -73,7 +66,7 @@ export default class Money extends Vue {
     }
   }
   recordContrast(other:any){
-    let record:Record;
+    let record:RecordItem;
     record = recordList[recordList.length-1];
     record = JSON.parse(JSON.stringify(record));
     delete record.createdAt;
@@ -82,6 +75,7 @@ export default class Money extends Vue {
     }else{
       return false
     }
+
     
   }
   created () {
