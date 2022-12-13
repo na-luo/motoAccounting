@@ -2,33 +2,41 @@
     <div>
         <Layout class-prefix="Labels">
             <div class="body-L">
-                <div>
-                    <ul class="Labels">
-                        <li><span>衣</span> <Icon name="big" class="icon"/></li>
-                        <li><span>食</span> <Icon name="big" class="icon"/></li>
-                        <li><span>住</span> <Icon name="big" class="icon"/></li>
-                        <li><span>行</span> <Icon name="big" class="icon"/></li>
-                        <li><span>衣</span> <Icon name="big" class="icon"/></li>
-                        <li><span>食</span> <Icon name="big" class="icon"/></li>
-                        <li><span>住</span> <Icon name="big" class="icon"/></li>
-                        <li><span>行</span> <Icon name="big" class="icon"/></li>
-                        <li><span>衣</span> <Icon name="big" class="icon"/></li>
-                        <li><span>食</span> <Icon name="big" class="icon"/></li>
-                        <li><span>住</span> <Icon name="big" class="icon"/></li>
-                        <li><span>行</span> <Icon name="big" class="icon"/></li>
-                    </ul>
-                </div>
-                <div class="add">
-                    <Icon name="add" class="icon"/>
-                </div>
+                    <ol class="Labels">
+                        <li v-for="tag in tags" :key="tag.id"><span>{{tag.name}}</span> <Icon name="big" class="icon"/></li>
+                        
+                    </ol>
+                    <div class="createTag">
+                        <button class="add" @click="createTag">
+                            新增标签
+                        </button>
+                    </div>
             </div>
         </Layout>
     </div>
 </template>
 <script lang="ts">
-    export default ({
-        name:'Labels'
-    })
+    import Vue from "vue";
+    import tagListModel from "@/model/tagListModel";
+    import { Component } from 'vue-property-decorator';
+    tagListModel.fetch();
+
+    @Component
+    export default class Labels extends Vue {
+        tags = tagListModel.data;
+        
+        createTag () {
+            console.log(this.tags);
+            const name = window.prompt('请输入标签名');
+            if (name) {
+                const message = tagListModel.create(name);
+                if (message === 'duplicated') {
+                    window.alert('重复');
+                    
+                }
+            }
+        }
+    }
 </script>
 <style lang="scss">
     .Labels-content{
@@ -38,24 +46,24 @@
 
 <style scoped lang="scss">
     .body-L{
-        background: rgb(241, 241, 241);
-        position: relative;
-        .add{
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        background: rgb(233, 248, 177);
-        opacity: 0.74;
-        height: 60px;
-        width: 60px;
-        border-radius: 60px;
-        text-align: center;
-        line-height: 60px;
-        > .icon{
-            margin-top: 16px;
-            font-size: 26px;
+        position: relative; 
+        .createTag{
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100px;
+            .add{
+            background: rgb(138, 138, 137);
+            height: 60px;
+            line-height: 60px;
+            width: 100px;
+            color: #000;
+            border-radius: 20px;
+            text-align: center;
+            border: none;
         }
-    }
+        }
     }
     .Labels{
         display: flex;

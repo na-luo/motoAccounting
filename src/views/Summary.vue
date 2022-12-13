@@ -6,9 +6,9 @@
                 <div @click="reBack">
                     <Icon name="return" class="icon"></Icon>
                 </div>
-                <select class="type" :value="value">
-                    <option value ="pay">收入</option>
-                    <option value="income">支出</option>
+                <select class="type" v-model="type">
+                    <option value="pay">支出</option>
+                    <option value ="income">收入</option>
                     <option value ="transfer_accounts">转账</option>
                 </select>
                 <div class="tag">
@@ -52,15 +52,15 @@
     
     import Vue from 'vue';
     import Note from '@/components/Summary/Note.vue';
-    import {Prop,Component} from 'vue-property-decorator';
+    import {Prop,Component,Watch} from 'vue-property-decorator';
     import Tags from "@/components/Money/Tags.vue";
     // let recordList:any[] = JSON.parse(window.localStorage.getItem('recordList')|| '[]'); 
     @Component({components:{Note,Tags}})
     export default class Summary extends Vue{
         recordList:any[] = JSON.parse(window.localStorage.getItem('recordList')|| '[]'); 
         record:any =this.recordList[this.recordList.length-1];
-        value=this.record['type'];
         money:string = this.record['sum'];
+        type = this.record['type'];
         save(){
             window.localStorage.setItem('recordList',JSON.stringify(this.recordList));
             setTimeout(()=> {this.$router.push('/Money')},1)
@@ -73,7 +73,23 @@
         onUpdateNote(value:string){
             this.record.note = value;
         }
+        // data(){
+        //     return{
+        //         watch: {
+        //             typed(newVal:any, oldVal:any) {
+        //                 console.log('你选中的对象数据为：')
+        //                 console.log( newVal )
+        //             }
+        // }
+        //     }
+        // }
+        @Watch('type')
+        changeType(type:string){
+            this.record.type = type;
+        }
     }
+
+
 </script>
 
 <style lang="scss" scoped>

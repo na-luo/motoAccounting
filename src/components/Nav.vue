@@ -12,7 +12,7 @@
             <Icon name="chart" class="icon"/>
             统计
         </router-link>
-        <router-link to="/summary" class="item" active-class="selected">
+        <router-link to="/mine" class="item" active-class="selected">
             <Icon name="mine" class="icon" />
             我的
         </router-link>

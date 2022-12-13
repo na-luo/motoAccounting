@@ -1,9 +1,17 @@
+
 <template>
   <div class="app">
     <router-view></router-view>
   </div>
 </template>
 
+<script>
+ import { Component,Watch,Prop } from 'vue-property-decorator';
+ import Vue from "vue";
+  export default ({
+   
+  })
+</script>
 <style lang="scss">
   @import "@/assets/style/reset.scss";
   @import "@/assets/style/helper.scss";

@@ -16,10 +16,12 @@ import NumberPad from "@/components/Money/NumberPad.vue";
 import Tags from "@/components/Money/Tags.vue";
 import Types from "@/components/Money/Types.vue";
 import { Prop, Component, Watch } from "vue-property-decorator";
-import model from "@/model";
+import model from "@/model/recordListModel";
+import tagListModel from "@/model/tagListModel";
 
 const version =  window.localStorage.getItem('version')|| '0';
-const recordList: RecordItem[] = model.fetch()
+const recordList: RecordItem[] = model.fetch();
+const tagList = tagListModel.fetch();
 
 // window.localStorage.setItem('version','0.0.1');
   // if (version === '0.0.1') {
@@ -39,7 +41,7 @@ const recordList: RecordItem[] = model.fetch()
 })
 export default class Money extends Vue {
   name = "Money";
-  tags = ["衣", "食", "住", "行"];
+  tags = tagList;
   initialValue= '0';
   recordList: RecordItem[] = JSON.parse(window.localStorage.getItem('recordList') ||'[]');
   record: RecordItem = {
@@ -54,7 +56,7 @@ export default class Money extends Vue {
   }
   saveRecord(value:number){
     this.record.sum = value;
-    const record2 = JSON.parse(JSON.stringify(this.record));
+    const record2 = model.clone(this.record);
     if (this.recordList.length===0) {
       record2.createdAt = new Date();
       this.recordList.push(record2);
@@ -84,17 +86,19 @@ export default class Money extends Vue {
     if (sum) {
       this.initialValue = JSON.stringify(sum);
     }
+    
+  
   }
   @Watch('recordList')
   onRecordLIstChanged(){
     model.save(this.recordList);
   }
 }
-</script>
+</script>   
 
 <style lang="scss" scoped>
 @import "@/assets/style/helper.scss";
-.layout-content {
+.layout-content { 
   border: 10px solid blue;
 }
 </style>
