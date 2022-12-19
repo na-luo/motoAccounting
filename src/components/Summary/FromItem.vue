@@ -1,10 +1,11 @@
 <template>
     <div>
-        <div class="note">
-                    <span>备注:</span>
+        <div class="FromItem">
+                    <span>{{fieldName}}</span>
                     <input type="text" 
                     v-model="value"
-                    placeholder="在这里输入备注">
+                    :placeholder="placeholder"
+                    >
         </div>
     </div>
 </template>
@@ -12,8 +13,11 @@
 <script lang="ts">
     import { Component, Vue, Watch,Prop } from 'vue-property-decorator';
     @Component
-    export default class Note extends Vue {
+    export default class FromItem extends Vue {
         value='';
+        @Prop({required:true})fieldName!:string;
+        @Prop({required:true})placeholder?:string;
+        @Prop()color?:string;
         onInput(event:KeyboardEvent){
             const input = event.target as HTMLInputElement;
             this.value = input.value
@@ -22,11 +26,17 @@
         onValueChanged(value:string){
             this.$emit('updateInput',value)
         }
+        mounted () {
+            let color = this.color || 'rgb(211, 211, 211)';
+            let FromItem:any = document.querySelector('.FromItem');
+            console.log(FromItem);
+            FromItem.setAttribute('style',`background:${color}`);
+        }
     }
 </script>
 
 <style scoped lang="scss">
-            .note{
+            .FromItem{
             padding: 2px 10px;
             background: rgb(211, 211, 211);
             height: 50px;

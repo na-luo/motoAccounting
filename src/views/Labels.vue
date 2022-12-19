@@ -2,14 +2,17 @@
     <div>
         <Layout class-prefix="Labels">
             <div class="body-L">
-                    <ol class="Labels">
-                        <li v-for="tag in tags" :key="tag.id"><span>{{tag.name}}</span> <Icon name="big" class="icon"/></li>
+                    <div class="Labels">
+                        <router-link v-for="tag in tags" :key="tag.id"
+                        :to="`/labels/edit/${tag.id}`" class="edit"
+                        ><span>{{tag.name}}</span> <Icon name="big" class="icon"/></router-link>
                         
-                    </ol>
+                    </div>
                     <div class="createTag">
-                        <button class="add" @click="createTag">
+                        <Button @click="createTag">
                             新增标签
-                        </button>
+                        </Button>
+                        
                     </div>
             </div>
         </Layout>
@@ -19,9 +22,10 @@
     import Vue from "vue";
     import tagListModel from "@/model/tagListModel";
     import { Component } from 'vue-property-decorator';
+    import Button from '@/components/Button.vue';
     tagListModel.fetch();
 
-    @Component
+    @Component({components:{Button}})
     export default class Labels extends Vue {
         tags = tagListModel.data;
         
@@ -53,23 +57,13 @@
             margin-left: auto;
             margin-right: auto;
             width: 100px;
-            .add{
-            background: rgb(138, 138, 137);
-            height: 60px;
-            line-height: 60px;
-            width: 100px;
-            color: #000;
-            border-radius: 20px;
-            text-align: center;
-            border: none;
-        }
         }
     }
     .Labels{
         display: flex;
         flex-direction: column;
         overflow: auto;
-        li{
+        .edit{
             height: 44px;
             border-bottom: 1px solid #ccc;
             line-height: 44px;

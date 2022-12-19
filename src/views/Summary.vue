@@ -37,9 +37,12 @@
                 <div class="numberPad">
                     {{money}}
                 </div>
-                <Note @updateInput="onUpdateNote"></Note>
+                <FromItem @updateInput="onUpdateFromItem" 
+                fieldName="备注"
+                placeholder="请在这里输入备注"
+                ></FromItem>
                 <div class="account">
-                    <span>账户:</span>
+                    <span>账户</span>
                     <div class="account-name">中国银行</div>
                 </div>
                 <div class="save" @click="save">保存</div>
@@ -51,11 +54,11 @@
 <script lang="ts">
     
     import Vue from 'vue';
-    import Note from '@/components/Summary/Note.vue';
+    import FromItem from '@/components/Summary/FromItem.vue';
     import {Prop,Component,Watch} from 'vue-property-decorator';
     import Tags from "@/components/Money/Tags.vue";
     // let recordList:any[] = JSON.parse(window.localStorage.getItem('recordList')|| '[]'); 
-    @Component({components:{Note,Tags}})
+    @Component({components:{FromItem,Tags}})
     export default class Summary extends Vue{
         recordList:any[] = JSON.parse(window.localStorage.getItem('recordList')|| '[]'); 
         record:any =this.recordList[this.recordList.length-1];
@@ -70,8 +73,8 @@
             query: {'sum': JSON.stringify(this.money)}
         });
         }
-        onUpdateNote(value:string){
-            this.record.note = value;
+        onUpdateFromItem(value:string){
+            this.record.FromItem = value;
         }
         // data(){
         //     return{
