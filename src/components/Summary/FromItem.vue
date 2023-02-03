@@ -3,8 +3,9 @@
         <div class="FromItem">
                     <span>{{fieldName}}</span>
                     <input type="text" 
-                    v-model="value"
-                    :placeholder="placeholder"
+                    :value="value"
+                    @input="onValueChanged($event.target.value)"
+                    :placeholder="this.placeholder"
                     >
         </div>
     </div>
@@ -14,14 +15,14 @@
     import { Component, Vue, Watch,Prop } from 'vue-property-decorator';
     @Component
     export default class FromItem extends Vue {
-        value='';
+        @Prop({default:''}) readonly value!:string;
         @Prop({required:true})fieldName!:string;
         @Prop({required:true})placeholder?:string;
         @Prop()color?:string;
-        onInput(event:KeyboardEvent){
-            const input = event.target as HTMLInputElement;
-            this.value = input.value
-        }
+        // onInput(event:KeyboardEvent){
+        //     const input = event.target as HTMLInputElement;
+        //     this.value = input.value
+        // }
         @Watch('value')
         onValueChanged(value:string){
             this.$emit('updateInput',value)

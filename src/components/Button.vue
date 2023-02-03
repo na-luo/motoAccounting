@@ -16,6 +16,7 @@
 
 <style scoped lang="scss">
             .add{
+            margin-top: 10px;
             display: block;
             margin-left: auto;
             margin-right: auto;

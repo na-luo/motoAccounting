@@ -1,12 +1,14 @@
 <template>
-    <Layout>
+    <Layout class-prefix="Edit">
         <div>
-            <div @click="reBack" class="return">
-                        <Icon name="return" class="icon"></Icon>
+            <div class="return">
+                        <div @click="reBack" class="leftIcon">
+                            <Icon  name="return" class="icon"></Icon>
+                        </div>
+                        <span class="title">编辑标签</span>
             </div>
-            <span>编辑标签</span>
-            <FromItem fieldName="标签名" placeholder="请输入标签名" color="white"></FromItem>
-            <Button>删除标签</Button>
+            <FromItem fieldName="标签名:" placeholder="请输入标签名" color="white"></FromItem>
+            <Button class="button">删除标签</Button>
         </div>
     </Layout>
 </template>
@@ -36,25 +38,35 @@ import Button from '../components/Button.vue';
         }
     }
 </script>
-
-<style scoped lang="scss">
-    body{
-        background-color: rgb(192, 187, 187);
+<style lang="scss">
+    .Edit-content{
+        background: #f5f5f5;
+        
     }
+</style>
+<style scoped lang="scss">
     .return{
         margin-top: 10px;
-        margin-bottom: 10px;
-        background-color: rgb(255, 255, 255);
-        .icon{
-            font-size: 34px;
-            top: 23px;
+        margin-bottom: 15px;
+        position: relative;
+        
+        .leftIcon{
+            position: absolute;
             left: 10px;
+            top: 3px;
+            .icon{
+                font-size: 34px;
+                top: 23px;
+                left: 10px;
+            }
+        }
+        .title{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            font-size: 25px;
         }
     }
-    span{
-        display: block;
-    }
-    .FromItem{
-        background-color: red;
-    }
+    
 </style>
