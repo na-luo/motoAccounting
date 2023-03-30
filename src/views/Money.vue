@@ -86,6 +86,8 @@ export default class Money extends Vue {
     if (sum) {
       this.initialValue = JSON.stringify(sum);
     }
+    //即时更新tags标签
+    this.tags = tagListModel.fetch();
     
   
   }

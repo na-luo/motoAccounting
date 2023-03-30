@@ -1,6 +1,6 @@
 <template>
     <Layout class-prefix="Edit">
-        <div>
+        <div>git 
             <div class="return">
                         <div @click="reBack" class="leftIcon">
                             <Icon  name="return" class="icon"></Icon>
@@ -8,7 +8,7 @@
                         <span class="title">编辑标签</span>
             </div>
             <FromItem fieldName="标签名:" placeholder="请输入标签名" color="white"></FromItem>
-            <Button class="button">删除标签</Button>
+            <Button class="button" @click="btn_del">删除标签</Button>
         </div>
     </Layout>
 </template>
@@ -21,6 +21,8 @@ import FromItem from '@/components/Summary/FromItem.vue';
 import Button from '../components/Button.vue';
 @Component({components:{FromItem,Button}})
     export default class EditLable extends Vue {
+        
+
         created () {
             const id = this.$route.params.id;
             tagListModel.fetch();
@@ -35,6 +37,16 @@ import Button from '../components/Button.vue';
         }
         reBack(){
             this.$router.push('/labels');
+        }
+        btn_del(){
+            const id = this.$route.params.id;
+            tagListModel.fetch();
+            const tag = tagListModel.data;
+            console.log(tag);
+            let tags = JSON.parse(window.localStorage.getItem('tagList') ||'[]');
+            // tags.pop(tags[id]);
+            console.log(id);
+            
         }
     }
 </script>

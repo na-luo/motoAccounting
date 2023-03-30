@@ -13,26 +13,7 @@
                 </select>
                 <div class="tag">
                     <div class="tagName">标签</div>
-                    <div class="tags">
-                        <ul class="current">
-                            <li>衣</li>
-                            <li>食</li>
-                            <li>住</li>
-                            <li>行</li>
-                            <li>行</li>
-                            <li>行</li>
-                            <li>行</li>
-                            <li>行</li>
-                            <li>行</li>
-                            <li>行</li>
-                            <li>行</li>
-                            <li>全部</li>
-                        </ul>
-                    </div>
-                    <div class="time">
-                        <span class="string">时间 :</span>
-                        <span class="date">2002-12-02 11:45:14</span>
-                    </div>
+                    <Tags :data-source.sync="tags" @update:value="onUpdateTags"></Tags>
                 </div>
                 <div class="numberPad">
                     {{money}}
@@ -57,6 +38,9 @@
     import FromItem from '@/components/Summary/FromItem.vue';
     import {Prop,Component,Watch} from 'vue-property-decorator';
     import Tags from "@/components/Money/Tags.vue";
+    import tagListModel from "@/model/tagListModel";
+    const tagList = tagListModel.fetch();
+
     // let recordList:any[] = JSON.parse(window.localStorage.getItem('recordList')|| '[]'); 
     @Component({components:{FromItem,Tags}})
     export default class Summary extends Vue{
@@ -64,6 +48,9 @@
         record:any =this.recordList[this.recordList.length-1];
         money:string = this.record['sum'];
         type = this.record['type'];
+
+        tags = tagList;
+        
         save(){
             window.localStorage.setItem('recordList',JSON.stringify(this.recordList));
             setTimeout(()=> {this.$router.push('/Money')},1)
